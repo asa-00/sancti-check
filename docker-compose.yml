@@ -1,0 +1,34 @@
+services:
+  app:
+    image: server:1.0.0
+    container_name: sancti-check
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+    - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./:/app
+      - server-v-node-modules:/app/node_modules
+    depends_on:
+      - database
+  
+  database:
+    image: database:1.0.0
+    container_name: ${DATABASE_HOST}
+    build: 
+     context: ./database
+     dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - database-v:/data/db
+
+volumes:
+  server-v-node-modules:
+    name: "server-v-node-modules"
+  database-v:
+    name: "database-v"

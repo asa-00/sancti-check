@@ -5,6 +5,8 @@ import {
   IUnSanctionedEntity,
 } from "../models/UnSanctionedEntity";
 import logger from "../utils/logger";
+import { ISanctionsSearchParams } from "../interfaces/ISanctionedIndividual";
+import { calculateMatchQuality, searchSanctions } from './sanctionsUtils';
 
 class UnSanctionService {
   private fileUrl =
@@ -17,31 +19,55 @@ class UnSanctionService {
       const response = await axios.get(this.fileUrl, { responseType: "text" });
       const parser = new xml2js.Parser();
       const result = await parser.parseStringPromise(response.data);
-
+  
       if (!result?.CONSOLIDATED_LIST?.INDIVIDUALS?.[0]?.INDIVIDUAL) {
         throw new Error("Invalid XML structure: INDIVIDUAL not found.");
       }
-
+  
+      logger.info("XML data parsed successfully.");
+  
       const entities = this.processEntities(
         result.CONSOLIDATED_LIST.INDIVIDUALS[0].INDIVIDUAL
       );
-
-      await UnSanctionedEntityModel.bulkWrite(
-        entities.map((entity) => ({
-          updateOne: {
-            filter: { dataId: entity.dataId }, // Identify the document to update
-            update: { $set: entity }, // Use $set to update fields
-            upsert: true, // Insert if the document does not exist
-          },
-        }))
-      );
-
-      logger.info("Sanctions loaded and database updated.");
+  
+      logger.info(`Processed ${entities.length} entities.`);
+      //logger.debug(`Entities: ${JSON.stringify(entities, null, 2)}`);
+  
+      if (entities.length === 0) {
+        throw new Error("No valid entities were parsed from XML.");
+      }
+  
+      const bulkOperations = entities.map((entity) => ({
+        updateOne: {
+          filter: { dataId: entity.dataId },
+          update: { $set: entity },
+          upsert: true,
+        },
+      }));
+  
+      logger.info(`Executing bulkWrite with ${bulkOperations.length} operations.`);
+      await UnSanctionedEntityModel.bulkWrite(bulkOperations);
+  
+      logger.info("Sanctions loaded and database updated successfully.");
     } catch (error) {
-      logger.error(`Error loading sanctions: ${error.message}`);
+      logger.error(`Error loading sanctions: ${error.message}`, error);
       throw error;
     }
   }
+
+  private parseDate(value: string): Date | undefined {
+    if (!value || value.trim() === "") {
+      logger.debug("Empty or missing date value encountered.");
+      return undefined;
+    }
+    const date = new Date(value);
+    if (isNaN(date.getTime())) {
+      logger.debug(`Invalid date encountered: ${value}`);
+      return undefined;
+    }
+    return date;
+  }; 
+  
 
   // Process XML data into entities matching the model
   private processEntities(entries: any[]): IUnSanctionedEntity[] {
@@ -53,38 +79,32 @@ class UnSanctionService {
         thirdName: entry.THIRD_NAME?.[0],
         unListType: entry.UN_LIST_TYPE?.[0] || "",
         referenceNumber: entry.REFERENCE_NUMBER?.[0] || "",
-        listedOn: entry.LISTED_ON?.[0]
-          ? new Date(entry.LISTED_ON[0])
-          : undefined,
+        listedOn: this.parseDate(entry.LISTED_ON?.[0]),
         nameOriginalScript: entry.NAME_ORIGINAL_SCRIPT?.[0],
         comments1: entry.COMMENTS1?.[0],
-        titles: entry.TITLE?.map((title: any) => title.VALUE?.[0]).filter(
-          Boolean
-        ),
-        designations: entry.DESIGNATION?.map(
-          (designation: any) => designation.VALUE?.[0]
-        ).filter(Boolean),
-        nationality: entry.NATIONALITY?.map(
-          (nat: any) => nat.VALUE?.[0]
-        ).filter(Boolean),
-        listType: entry.LIST_TYPE?.map((lt: any) => lt.VALUE?.[0]).filter(
-          Boolean
-        ),
-        lastDayUpdated: entry.LAST_DAY_UPDATED?.map(
-          (ldu: any) => new Date(ldu.VALUE?.[0])
-        ).filter(Boolean),
+        titles: entry.TITLE?.map((title: any) => title.VALUE?.[0]).filter(Boolean),
+        designations: entry.DESIGNATION?.map((d: any) => d.VALUE?.[0]).filter(Boolean),
+        nationality: entry.NATIONALITY?.map((nat: any) => nat.VALUE?.[0]).filter(Boolean),
+        listType: entry.LIST_TYPE?.map((lt: any) => lt.VALUE?.[0]).filter(Boolean),
+  
+        // Parse multiple LAST_DAY_UPDATED values into an array of Dates
+        lastDayUpdated: entry.LAST_DAY_UPDATED?.[0]?.VALUE
+          ? entry.LAST_DAY_UPDATED[0].VALUE.map((value: string) => this.parseDate(value)).filter(Boolean)
+          : [],
+  
         aliases: entry.INDIVIDUAL_ALIAS?.map((alias: any) => ({
           quality: alias.QUALITY?.[0] || "",
           aliasName: alias.ALIAS_NAME?.[0] || "",
         })).filter((alias: any) => alias.quality || alias.aliasName),
+        
         placeOfBirth: entry.INDIVIDUAL_PLACE_OF_BIRTH?.[0]
           ? {
               city: entry.INDIVIDUAL_PLACE_OF_BIRTH[0].CITY?.[0],
-              stateProvince:
-                entry.INDIVIDUAL_PLACE_OF_BIRTH[0].STATE_PROVINCE?.[0],
+              stateProvince: entry.INDIVIDUAL_PLACE_OF_BIRTH[0].STATE_PROVINCE?.[0],
               country: entry.INDIVIDUAL_PLACE_OF_BIRTH[0].COUNTRY?.[0],
             }
           : undefined,
+        
         dateOfBirth: entry.INDIVIDUAL_DATE_OF_BIRTH?.[0]
           ? {
               typeOfDate: entry.INDIVIDUAL_DATE_OF_BIRTH[0].TYPE_OF_DATE?.[0],
@@ -92,7 +112,7 @@ class UnSanctionService {
             }
           : undefined,
       };
-
+  
       // Remove undefined or empty fields from the entity
       Object.keys(entity).forEach((key) => {
         const value = (entity as any)[key];
@@ -104,33 +124,12 @@ class UnSanctionService {
           delete (entity as any)[key];
         }
       });
-
+  
       return entity as IUnSanctionedEntity;
     });
   }
-
-  // Check for updates in the sanctions list and reload if necessary
-  async checkForUpdates(): Promise<Boolean> {
-    try {
-      const response = await axios.get(this.fileUrl, { responseType: "text" });
-      const parser = new xml2js.Parser();
-      const result = await parser.parseStringPromise(response.data);
-
-      if (!result?.CONSOLIDATED_LIST?.INDIVIDUALS?.[0]?.INDIVIDUAL) {
-        logger.info("No changes detected in the sanctions list.");
-        return false;
-      }
-
-      logger.info("Changes detected in the sanctions list. Reloading...");
-      await this.loadSanctions();
-      return true;
-    } catch (error) {
-      logger.error("Error checking for updates:", error.message);
-      throw error;
-    }
-  }
-
-  async searchSanctions(params: any): Promise<
+  
+  async searchSanctions(params: ISanctionsSearchParams): Promise<
     {
       [x: string]: any;
       firstName: string;
@@ -139,9 +138,7 @@ class UnSanctionService {
       placeOfBirth: { city?: string; stateProvince?: string; country?: string };
       dateOfBirth: { typeOfDate?: string; year?: string };
       matchQuality: string;
-      entity: IUnSanctionedEntity;
       score: number;
-      quality: string;
     }[]
   > {
     const query: any = {};
@@ -168,7 +165,7 @@ class UnSanctionService {
 
     try {
       const results = await UnSanctionedEntityModel.find(query).lean().exec();
-
+      logger.debug("Got result for search:", JSON.stringify(results, null, 2));
       const scoredResults = results.map((entity) => {
         let score = 0;
         const totalFields = 4; // Number of potential matching fields
@@ -212,23 +209,17 @@ class UnSanctionService {
           matchedFields += 1;
         }
 
-        const quality =
-          matchedFields === totalFields
-            ? "High"
-            : matchedFields > 0
-            ? "Medium"
-            : "Low";
-
+        const quality = calculateMatchQuality(matchedFields, totalFields)
+ 
         return {
+          name: `${entity.firstName} ${entity.secondName} ${entity.thirdName}`,
           firstName: entity.firstName,
           secondName: entity.secondName || "",
           thirdName: entity.thirdName || "",
           placeOfBirth: entity.placeOfBirth || {},
-          dateOfBirth: entity.dateOfBirth || {},
-          matchQuality: quality,
-          entity,
+          dateOfBirth: entity.dateOfBirth || { year: "Unknown"},
           score: (score / totalFields) * 100,
-          quality,
+          matchQuality: quality,
         };
       });
 
@@ -236,6 +227,27 @@ class UnSanctionService {
     } catch (error) {
       logger.error("Error searching sanctions:", error.message);
       throw new Error("Database query failed");
+    }
+  }
+
+  // Check for updates in the sanctions list and reload if necessary
+  async checkForUpdates(): Promise<Boolean> {
+    try {
+      const response = await axios.get(this.fileUrl, { responseType: "text" });
+      const parser = new xml2js.Parser();
+      const result = await parser.parseStringPromise(response.data);
+
+      if (!result?.CONSOLIDATED_LIST?.INDIVIDUALS?.[0]?.INDIVIDUAL) {
+        logger.info("No changes detected in the sanctions list.");
+        return false;
+      }
+
+      logger.info("Changes detected in the sanctions list. Reloading...");
+      await this.loadSanctions();
+      return true;
+    } catch (error) {
+      logger.error("Error checking for updates:", error.message);
+      throw error;
     }
   }
 }

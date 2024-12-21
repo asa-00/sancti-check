@@ -2,7 +2,8 @@ import axios from "axios";
 import xml2js from "xml2js";
 import logger from "../utils/logger";
 import { IOfacSanctionedEntity, OfacSanctionedEntityModel } from "../models/OfacSanctionedEntity";
-import { IUNSanctionsSearchParams } from '../interfaces/ISanctionedIndividual';
+import { ISanctionsSearchParams } from '../interfaces/ISanctionedIndividual';
+import { calculateMatchQuality, searchSanctions } from './sanctionsUtils';
 
 export interface SanctionedIndividual {
   dataId: string;
@@ -17,26 +18,6 @@ export interface SanctionedIndividual {
   matchQuality?: string;
 }
 
-export interface Feature {
-  type: string;
-  value: string;
-  dateRange?: {
-    fromDate: string;
-    toDate: string;
-  };
-}
-
-export interface SearchParams {
-  firstName?: string;     
-  lastName?: string;       
-  placeOfBirth?: {
-    country?: string;         
-  };
-  dateOfBirth?: {
-    year?: string;          
-  };
-}
-
 class OfacSanctionService {
   private changesApi = "https://sanctionslistservice.ofac.treas.gov/changes/latest";
   private fileUrl = "https://sanctionslistservice.ofac.treas.gov/api/download/sdn.xml";
@@ -47,7 +28,7 @@ class OfacSanctionService {
   constructor() {}
 
   // Helper method to calculate match quality
-  private calculateMatchQuality(entity: any, params: SearchParams): string {
+  private calculateMatchQuality(entity: any, params: ISanctionsSearchParams): any {
     let score = 0;
     let matchedFields = 0;
     const totalFields = 4; // First name, last name, country, date of birth
@@ -77,13 +58,21 @@ class OfacSanctionService {
     }
   
     // Calculate quality based on matched fields
-    const quality = matchedFields === totalFields ? "High" :
-                    matchedFields > 0 ? "Medium" : "Low";
+    const quality = calculateMatchQuality(matchedFields, totalFields)
   
-    return quality;
+    return { quality, score, totalFields, matchedFields };
   }
 
-  async searchSanctions(params: SearchParams): Promise<any[]> {
+  async searchSanctions(params: ISanctionsSearchParams): Promise<{
+    [x: string]: any;
+    firstName: string;
+    secondName: string;
+    thirdName: string;
+    placeOfBirth: { city?: string; stateProvince?: string; country?: string };
+    dateOfBirth: { typeOfDate?: string; year?: string };
+    matchQuality: string;
+    score: number;
+  }[]> {
     const query: any = {};
   
     // Match name against both firstName and lastName in a single field
@@ -123,15 +112,15 @@ class OfacSanctionService {
   
       const sanctionedResults = results.map((entity: IOfacSanctionedEntity) => {
         const matchQuality = this.calculateMatchQuality(entity, params);
-        return {
-          id: entity.id,
+        return {       
           name: entity.name,
-          country: entity.country,
-          programs: entity.programs || [],
-          addresses: entity.addresses || [],
-          features: entity.features || [],
-          dateOfBirth: entity.dateOfBirth?.year || "Unknown",
-          matchQuality, // Add matchQuality
+          firstName: entity.firstName || "",
+          secondName: entity.secondName || "",
+          thirdName: entity.thirdName || "",
+          placeOfBirth: typeof entity.placeOfBirth === 'object' ? entity.placeOfBirth : { country: entity.country || "Unknown" },
+          dateOfBirth: { year: entity.dateOfBirth?.year || "Unknown" },
+          matchQuality: matchQuality.quality,
+          score: (matchQuality.score  / matchQuality.totalFields) * 100,
         };
       });
   

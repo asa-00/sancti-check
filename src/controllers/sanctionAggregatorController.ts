@@ -15,7 +15,7 @@ export const searchSanctions = async (req: Request, res: Response): Promise<void
 
   try {
     // Get aggregated results from the SanctionAggregatorService
-    const aggregatedResults = await SanctionAggregatorService.searchAggregatedSanctions(searchParams);
+    const aggregatedResults = await SanctionAggregatorService.aggregateSanctions(searchParams);
 
     // Return the aggregated results as a response
     res.status(200).json(aggregatedResults);

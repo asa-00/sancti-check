@@ -1,0 +1,10 @@
+import express from "express";
+import { loadSanctions, searchSanctions, checkForUpdates } from "../controllers/euSanctionsController";
+
+const router = express.Router();
+
+router.post("/load", loadSanctions);
+router.post("/search", searchSanctions);
+router.get("/check-updates", checkForUpdates);
+
+export default router;

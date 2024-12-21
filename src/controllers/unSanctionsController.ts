@@ -2,41 +2,19 @@ import { Request, Response } from 'express';
 import SanctionService from '../services/unSanctionsService';
 import logger from '../utils/logger';
 
-// Get all sanctions
-/* export const getAllSanctions = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const sanctions = await SanctionService.getAllSanctions();
-    if (sanctions.length > 0) {
-      logger.info(
-        `${sanctions.length} sanctions returned from United Nations Security Council Consolidated List`,
-        'info'
-      );
-    }
-    res.json(sanctions);
-  } catch (error: any) {
-    logger.error('Error fetching sanctions:', error.message);
-    res.status(500).json({ message: error.message });
-  }
-}; */
-
 // Check if a user is sanctioned
-export const checkSanctionedUser = async (
+export const searchSanctions = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { name, country, firstName, lastName, dob, birthplace } = req.body; // Fields to check
+  const { dateOfBirth, placeOfBirth, firstName, lastName } = req.body; // Fields to check
 
   try {
     const sanctions = await SanctionService.searchSanctions({
-      name,
-      country,
+      placeOfBirth,
       firstName,
       lastName,
-      dob,
-      birthplace,
+      dateOfBirth,
     });
     if (sanctions.length > 0) {
       logger.info(
@@ -53,34 +31,6 @@ export const checkSanctionedUser = async (
     res.status(500).json({ message: error.message });
   }
 };
-
-// Get sanction by ID
-/* export const getSanctionById = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-
-  try {
-    const sanction = await SanctionService.getSanctionById(id);
-    if (!sanction) {
-      logger.info(
-        'Sanction not found in United Nations Security Council Consolidated List',
-        'info'
-      );
-      res.status(404).json({ message: 'Sanction not found' });
-    } else {
-      logger.info(
-        'Sanction returned from United Nations Security Council Consolidated List',
-        'info'
-      );
-      res.json(sanction);
-    }
-  } catch (error: any) {
-    logger.error('Error fetching sanction by ID:', error.message);
-    res.status(500).json({ message: error.message });
-  }
-}; */
 
 // Load UN Consolidated List data into the database
 export const loadUnConsolidated = async (

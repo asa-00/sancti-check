@@ -3,7 +3,7 @@ import OfacSanctionService from "../services/ofacSanctionsService"; // The servi
 
 // Controller to search for sanctions
 export const searchSanctions = async (req: Request, res: Response): Promise<void> => {
-  const { dateOfBirth, placeOfBirth, firstName, lastName, dob, birthplace } = req.body;
+  const { dateOfBirth, placeOfBirth, firstName, lastName } = req.body;
 
   // Use the OfacSanctionService to search sanctions based on parameters
   const results = await OfacSanctionService.searchSanctions({

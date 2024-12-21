@@ -3,8 +3,6 @@ import * as sanctionsAggregatorController from "../controllers/sanctionAggregato
 
 const router = express.Router();
 
-
-
 router.post('/search', sanctionsAggregatorController.searchSanctions);
 
 export default router;

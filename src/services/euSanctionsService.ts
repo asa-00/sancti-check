@@ -7,23 +7,6 @@ import { ISanctionsSearchParams } from "../interfaces/ISanctionedIndividual";
 import { calculateMatchQuality } from "./sanctionsUtils";
 import { v4 as uuidv4 } from "uuid";
 
-interface ISanctionedEntity {
-  firstName: string;
-  secondName: string;
-  thirdName: string;
-  placeOfBirth: {
-    city?: string;
-    stateProvince?: string;
-    country?: string;
-  };
-  dateOfBirth: {
-    typeOfDate?: string;
-    year?: string;
-  };
-  matchQuality: string;
-  score: number;
-}
-
 class EUSanctionService {
   private rssFeedUrl = "https://webgate.ec.europa.eu/fsd/fsf/public/rss";
   private fileUrl = "https://webgate.ec.europa.eu/fsd/fsf/public/files/xmlFullSanctionsList_1_1/content?token=dG9rZW4tMjAxNw";
@@ -36,15 +19,14 @@ class EUSanctionService {
       const parser = new xml2js.Parser();
       const result = await parser.parseStringPromise(response.data);
 
-      logger.info("XML data parsed successfully.");
+      logger.info("EU List XML data parsed successfully.");
 
       if (!result?.export?.sanctionEntity) {
         throw new Error("Invalid XML structure: sanctionEntity not found.");
       }
 
       const entities = this.processEntities(result.export.sanctionEntity);
-
-      logger.info(`Processed ${JSON.stringify(entities)} entities.`);
+      logger.info(`Processed ${entities.length} entities.`);
 
       await EuSanctionedEntityModel.bulkWrite(
         entities.map((entity) => ({
@@ -89,7 +71,7 @@ class EUSanctionService {
   }
 
   // Search the EU sanctions list
-  async searchSanctions(params: ISanctionsSearchParams): Promise<ISanctionedEntity[]> {
+  async searchSanctions(params: ISanctionsSearchParams): Promise<ISanctionsSearchParams[]> {
     const query: any = {};
 
     // Transliterate search parameters

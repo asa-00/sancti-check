@@ -1,6 +1,8 @@
+import { time } from 'console';
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IHighQualityResult extends Document {
+  userId: string;
   name: string;
   country: string;
   dateOfBirth: string;
@@ -10,9 +12,11 @@ export interface IHighQualityResult extends Document {
   isReviewed: boolean;
   reviewedBy?: string;
   reviewComment?: string;
+  timestamp: Date;
 }
 
 const HighQualityResultSchema: Schema = new Schema({
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   country: { type: String, required: true },
   dateOfBirth: { type: String, required: true },
@@ -22,6 +26,7 @@ const HighQualityResultSchema: Schema = new Schema({
   isReviewed: { type: Boolean, default: false },
   reviewedBy: { type: String, default: null },
   reviewComment: { type: String, default: null },
+  timestamp: { type: Date, default: Date.now },
 });
 
 export const HighQualityResultModel = mongoose.model<IHighQualityResult>('HighQualityResult', HighQualityResultSchema);

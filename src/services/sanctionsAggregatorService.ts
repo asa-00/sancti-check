@@ -4,6 +4,7 @@ import euSanctionService from './euSanctionsService';
 import ukSanctionService from './ukSantionsService';
 import { HighQualityResultModel } from '../models/HighQualityResult';
 import logger from "../utils/logger";
+import { UUID } from 'mongodb';
 
 class SanctionsAggregatorService {
   async aggregateSanctions(params: any) {
@@ -26,10 +27,10 @@ class SanctionsAggregatorService {
 
       // Save high-quality results to the database
       if (aggregatedScore >= 80) {
-        await this.saveHighQualityResults(results);
+        await this.saveHighQualityResults(results, params.userId);
       }
 
-      return { results, aggregatedScore };
+      return { params, aggregatedScore, results };
     } catch (error) {
       logger.error('Error aggregating sanctions:', error.message);
       throw error;
@@ -55,12 +56,13 @@ class SanctionsAggregatorService {
     return results.length ? totalScore / results.length : 0;
   }
 
-  private async saveHighQualityResults(results: any[]) {
+  private async saveHighQualityResults(results: any[], userId: UUID) {
     const highQualityResults = results.filter(result => result.matchQuality === 'High');
 
     const bulkOps = highQualityResults.map(result => ({
       updateOne: {
         filter: {
+          userId: userId,
           name: result.name,
           country: result.country,
           dateOfBirth: result.dateOfBirth,

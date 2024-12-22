@@ -20,7 +20,7 @@ class UKSanctionService {
       if (!result?.Designations?.Designation) {
         throw new Error("Invalid XML structure: Designation not found.");
       }
-
+      logger.info("UK List XML data parsed successfully.");
       const entities = this.processEntities(result.Designations.Designation);
       logger.info(`Processed ${entities.length} entities.`);
 

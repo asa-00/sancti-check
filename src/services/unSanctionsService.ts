@@ -24,18 +24,17 @@ class UnSanctionService {
         throw new Error("Invalid XML structure: INDIVIDUAL not found.");
       }
   
-      logger.info("XML data parsed successfully.");
+      logger.info("UN list XML data parsed successfully.");
   
       const entities = this.processEntities(
         result.CONSOLIDATED_LIST.INDIVIDUALS[0].INDIVIDUAL
       );
-  
-      logger.info(`Processed ${entities.length} entities.`);
-      //logger.debug(`Entities: ${JSON.stringify(entities, null, 2)}`);
-  
+        
       if (entities.length === 0) {
         throw new Error("No valid entities were parsed from XML.");
       }
+
+      logger.info(`Processed ${entities.length} entities.`);
   
       const bulkOperations = entities.map((entity) => ({
         updateOne: {
@@ -129,18 +128,7 @@ class UnSanctionService {
     });
   }
   
-  async searchSanctions(params: ISanctionsSearchParams): Promise<
-    {
-      [x: string]: any;
-      firstName: string;
-      secondName: string;
-      thirdName: string;
-      placeOfBirth: { city?: string; stateProvince?: string; country?: string };
-      dateOfBirth: { typeOfDate?: string; year?: string };
-      matchQuality: string;
-      score: number;
-    }[]
-  > {
+  async searchSanctions(params: ISanctionsSearchParams): Promise<ISanctionsSearchParams[]> {
     const query: any = {};
 
     if (params.firstName) {

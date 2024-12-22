@@ -142,7 +142,10 @@ class OfacSanctionService {
         throw new Error("Invalid XML structure: sdnEntry not found.");
       }
 
+      logger.info("OFAC List XML data parsed successfully.");
       const entities = this.processEntities(result.sdnList.sdnEntry);
+      logger.info(`Processed ${entities.length} entities.`);
+
       await OfacSanctionedEntityModel.bulkWrite(
         entities.map((entity) => ({
           updateOne: {

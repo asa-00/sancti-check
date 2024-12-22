@@ -19,6 +19,7 @@ export interface IUNSanctionedIndividual {
   } | null;
 }
 export interface ISanctionsSearchParams {
+  userId?: string;
   name?: string;
   firstName?: string;     
   lastName?: string;       
@@ -31,6 +32,7 @@ export interface ISanctionsSearchParams {
 }
 
 export interface ISanctionedEntity {
+  userId?: string;
   firstName: string;
   secondName: string;
   thirdName: string;

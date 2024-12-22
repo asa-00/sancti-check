@@ -3,10 +3,11 @@ import SanctionAggregatorService from "../services/sanctionsAggregatorService";
 
 // Controller to search for sanctions
 export const searchSanctions = async (req: Request, res: Response): Promise<void> => {
-  const { firstName, lastName, placeOfBirth, dateOfBirth } = req.body;
+  const { firstName, lastName, placeOfBirth, dateOfBirth, userId } = req.body;
 
   // Construct search parameters based on the request body
   const searchParams = {
+    userId,
     firstName,
     lastName,
     placeOfBirth,

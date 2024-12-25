@@ -1,0 +1,2 @@
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2024-12-25T20:45:39.125Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2024-12-25T20:45:59.459Z"}

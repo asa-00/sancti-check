@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import User from '../models/User';
 import { register, login } from '../services/authService'; // Ensure these functions are defined in authService.ts
+import { IUser } from '../interfaces/IUser';
 
 // Login controller
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
@@ -17,7 +17,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;
   try {
-    const token = await register(name, email, password); // Using the register function here
+    const token = await register(name, email, password);
     res.json({ token });
   } catch (error) {
     res.status(400).json({ message: (error as Error).message });

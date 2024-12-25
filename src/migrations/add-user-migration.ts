@@ -7,10 +7,16 @@ dotenv.config();
 
 // Define the user to be added
 const newUser: IUser = {
+  id: new mongoose.Types.ObjectId().toString(),
   name: "John Doe",
   email: "john.doe@example.com",
   password: "securepassword123", // Ideally hashed, but raw for demonstration
-  // Add any other required fields here
+  refreshToken: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  comparePassword: function (candidatePassword: string): Promise<boolean> {
+    throw new Error("Function not implemented.");
+  }
 };
 
 // Function to perform the migration

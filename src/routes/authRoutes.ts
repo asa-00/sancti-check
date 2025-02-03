@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import * as authController from "../controllers/authController";
-import passport from "passport";
+//import passport from "passport";
 import { authenticateToken, refreshToken, generateAccessToken, generateRefreshToken } from "../services/tokenService";
 import { IUser } from "../interfaces/IUser";
 import logger from "../utils/logger";
@@ -30,14 +30,14 @@ router.post("/token", async (req: Request, res: Response) => {
  * @description Initiates OAuth2 authentication
  * @access Public
  */
-router.get('/auth', passport.authenticate('oauth2'));
+//router.get('/auth', passport.authenticate('oauth2'));
 
 /**
  * @route GET /auth/callback
  * @description Handles OAuth2 callback and generates access and refresh tokens
  * @access Public
  */
-router.get(
+/* router.get(
   "/auth/callback",
   passport.authenticate("oauth2", { session: false }),
   (req: Request, res: Response) => {
@@ -53,6 +53,6 @@ router.get(
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }
-);
+); */
 
 export default router;

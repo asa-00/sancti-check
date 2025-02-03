@@ -10,7 +10,7 @@ const router = Router();
  * @description Get all users
  * @access Private (Admin only)
  */
-router.get('/', authorizeRole('admin'), getAllUsersController);
+router.get('/', getAllUsersController);
 
 /**
  * @route GET /users/:id

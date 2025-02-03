@@ -1,2 +1,62 @@
 {"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2024-12-25T20:45:39.125Z"}
 {"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2024-12-25T20:45:59.459Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T17:49:08.161Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T17:49:08.161Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:18:14.912Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:18:14.912Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:20:44.886Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:20:44.887Z"}
+{"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-02T19:21:20.941Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:35:15.960Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:35:15.960Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:40:27.203Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:40:27.204Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:42:08.172Z"}
+{"level":"error","message":"Error while connecting to the database: URI contained empty userinfo section","timestamp":"2025-02-02T19:42:08.173Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T19:43:50.363Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo EAI_AGAIN mongodb","timestamp":"2025-02-02T19:44:10.439Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T19:46:41.374Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo EAI_AGAIN mongodb","timestamp":"2025-02-02T19:47:02.714Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T19:50:18.652Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo EAI_AGAIN mongodb","timestamp":"2025-02-02T19:50:39.783Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T20:03:43.104Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo EAI_AGAIN mongodb","timestamp":"2025-02-02T20:04:05.310Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T20:05:50.744Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo EAI_AGAIN mongodb","timestamp":"2025-02-02T20:06:15.416Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-02T20:12:39.453Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'databaseName')","timestamp":"2025-02-02T20:13:42.033Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T15:59:50.299Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongodb","timestamp":"2025-02-03T16:00:14.320Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T16:09:26.171Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongodb","timestamp":"2025-02-03T16:09:48.362Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T16:25:17.443Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongodb","timestamp":"2025-02-03T16:25:43.292Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T16:41:19.241Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongodb","timestamp":"2025-02-03T16:41:45.123Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:05:12.070Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongodb","timestamp":"2025-02-03T17:05:36.740Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:25:51.658Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND mongo-db","timestamp":"2025-02-03T17:26:19.198Z"}
+{"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T17:26:19.849Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:30:59.911Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-03T17:31:07.413Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:35:18.993Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:48:07.959Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T17:55:54.214Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-03T17:56:01.487Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T18:04:19.549Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-03T18:04:26.418Z"}
+{"level":"error","message":"Error updating user: Operation `users.findOneAndUpdate()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.findOneAndUpdate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:04:44.842Z"}
+{"level":"error","message":"Error updating user:","timestamp":"2025-02-03T18:04:44.843Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T18:06:48.643Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-03T18:06:55.018Z"}
+{"level":"error","message":"Error fetching users: Operation `users.find()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.find()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:07:11.416Z"}
+{"level":"error","message":"Error fetching users:","timestamp":"2025-02-03T18:07:11.418Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T18:07:37.271Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-03T18:07:44.370Z"}
+{"level":"error","message":"Error fetching user by ID: Operation `users.findOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.findOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:07:53.161Z"}
+{"level":"error","message":"Error fetching user:","timestamp":"2025-02-03T18:07:53.163Z"}
+{"level":"error","message":"Error fetching users: Operation `users.find()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.find()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:08:38.207Z"}
+{"level":"error","message":"Error fetching users:","timestamp":"2025-02-03T18:08:38.208Z"}
+{"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:09:21.628Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T18:11:46.265Z"}

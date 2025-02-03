@@ -11,8 +11,12 @@ RUN npm install
 # Copy other files as well
 COPY ./ ./
 
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
+RUN apk update && apk add bash
 # Expose the port
 #EXPOSE 5500
 
 # Command to execute when the image is instantiated
-CMD [ "npm", "run", "dev" ]
+CMD ["/wait-for-it.sh", "database:27017", "--", "npm", "run", "dev" ]

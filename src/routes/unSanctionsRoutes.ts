@@ -3,14 +3,8 @@ import * as unSanctionsController from '../controllers/unSanctionsController';
 
 const router = Router();
 
-// Route to get all sanctions
-//router.get('/', unSanctionsController.getAllSanctions);
-
 // Route to check if a user is on the sanctions list
-router.post('/check', unSanctionsController.searchSanctions);
-
-// Route to get sanctions details by ID
-// router.get('/:id', unSanctionsController.getSanctionById);
+router.post('/search', unSanctionsController.searchSanctions);
 
 router.post("/load", unSanctionsController.loadUnConsolidated);
 

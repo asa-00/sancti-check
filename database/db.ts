@@ -15,6 +15,12 @@ const {
 
 const URI = `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DB}?authSource=admin`;
 
+// Validate required environment variables
+if (!DATABASE_USERNAME || !DATABASE_PASSWORD || !DATABASE_DB || !DATABASE_HOST || !DATABASE_PORT) {
+  logger.error('Missing required database configuration environment variables.');
+  process.exit(1); 
+}
+
 export const connectDB = async (): Promise<void> => {
   try {
     const options: ConnectOptions = {
@@ -36,7 +42,7 @@ export const connectDB = async (): Promise<void> => {
     logger.info(`Collection count: ${Object.keys(connection.connection.collections).length}`);
     logger.info(`Collection accessed: ${collection.collectionName}`);
   } catch (err) {
-    logger.error(`Error while connecting to the database: ${(err as Error).message}`);
+    logger.error(`Error while connecting to the database: ${err}`);
   }
 };
 

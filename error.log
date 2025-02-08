@@ -60,3 +60,42 @@
 {"level":"error","message":"Error fetching users:","timestamp":"2025-02-03T18:08:38.208Z"}
 {"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-03T18:09:21.628Z"}
 {"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-03T18:11:46.265Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:18:19.910Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:18:27.042Z"}
+{"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-07T19:20:42.923Z"}
+{"level":"error","message":"Error registering user: Operation `users.insertOne()` buffering timed out after 10000ms","stack":"MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (C:\\ws\\git\\sancti-check\\node_modules\\mongoose\\lib\\drivers\\node-mongodb-native\\collection.js:185:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at processTimers (node:internal/timers:529:7)","timestamp":"2025-02-07T19:21:32.380Z"}
+{"level":"error","message":"Error searching sanctions:","timestamp":"2025-02-07T19:23:51.410Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:26:11.604Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:26:18.707Z"}
+{"level":"error","message":"Error searching sanctions:","timestamp":"2025-02-07T19:26:43.083Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:27:24.375Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:27:31.440Z"}
+{"level":"error","message":"Error searching sanctions:","timestamp":"2025-02-07T19:27:39.130Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:35:08.225Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:35:15.048Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:39:25.415Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:39:32.358Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:39:56.451Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:40:02.898Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:42:40.854Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:42:47.533Z"}
+{"level":"error","message":"Error while connecting to the database: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:43:24.070Z"}
+{"level":"error","message":"Error while connecting to the database: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:43:31.133Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-07T19:44:07.569Z"}
+{"level":"error","message":"Error while connecting to the database: MongooseServerSelectionError: getaddrinfo ENOTFOUND database","timestamp":"2025-02-07T19:44:14.531Z"}
+{"level":"error","message":"Error while connecting to the database: MongooseError: The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.","timestamp":"2025-02-08T09:47:57.967Z"}
+{"level":"error","message":"Error while connecting to the database: MongooseError: The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.","timestamp":"2025-02-08T09:47:57.968Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T09:52:49.327Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T10:00:58.367Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T10:07:31.431Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T10:17:12.659Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T10:58:27.610Z"}
+{"level":"error","message":"Error while connecting to the database: MongooseServerSelectionError: getaddrinfo ENOTFOUND database","timestamp":"2025-02-08T10:58:34.353Z"}
+{"level":"error","message":"Error fetching HighQualityResults:","timestamp":"2025-02-08T10:58:55.251Z"}
+{"level":"error","message":"Error fetching HighQualityResults:","timestamp":"2025-02-08T10:59:53.468Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T11:01:54.636Z"}
+{"level":"error","message":"Error while connecting to the database: MongooseServerSelectionError: getaddrinfo ENOTFOUND database","timestamp":"2025-02-08T11:02:01.616Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T11:07:12.133Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T15:54:09.920Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T15:54:30.628Z"}
+{"level":"error","message":"Error while connecting to the database: TypeError: Cannot read properties of undefined (reading 'collection')","timestamp":"2025-02-08T18:43:20.930Z"}

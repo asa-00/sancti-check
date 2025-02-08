@@ -11,13 +11,16 @@ services:
     - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - ./:/app
-      - server-v-node-modules:/app/node_modules
+      - /app/node_modules
     depends_on:
-      - database
+      database:
+        condition: service_healthy
   
   database:
     image: mongo:latest
     container_name: ${DATABASE_HOST}
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
     build: 
      context: ./database
      dockerfile: Dockerfile
@@ -26,12 +29,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: sancticheckdb
-    ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
       - database-v:/data/db
     healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       retries: 5
       start_period: 20s

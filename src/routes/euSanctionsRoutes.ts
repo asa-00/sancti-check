@@ -4,7 +4,7 @@ import { authorizeRole } from "../middleware/authorizeRole";
 
 const router = express.Router();
 
-router.post("/load", authorizeRole("admin"), loadSanctions);
+router.post("/load", loadSanctions);
 router.post("/search", searchSanctions);
 router.get("/check-updates", checkForUpdates);
 

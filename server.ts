@@ -26,6 +26,7 @@ import ukSanctionsRoutes from './src/routes/ukSanctionsRoutes';
 import sanctionsAggregatorRoutes from './src/routes/sanctionsAggregatorRoutes';
 import { errorHandler } from './src/utils/errorHandler'; 
 import authMiddleware from './src/middleware/authMiddleware'; 
+import highQualityResultRoutes from './src/routes/highQualityResultRoutes';
 
 // Routes
 app.use('/api/protected-route', authMiddleware)
@@ -37,6 +38,7 @@ app.use('/api/sanctions/ofac', ofacSanctionsRoutes);
 app.use('/api/sanctions/eu', euSanctionsRoutes);
 app.use('/api/sanctions/uk', ukSanctionsRoutes);
 app.use('/api/sanctions', sanctionsAggregatorRoutes);
+app.use('/api/sanctions/high-quality-results', highQualityResultRoutes);
 
 // Health check route
 app.use("/api/health", (req: Request, res: Response): void => {

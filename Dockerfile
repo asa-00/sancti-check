@@ -16,7 +16,7 @@ RUN chmod +x /wait-for-it.sh
 
 RUN apk update && apk add bash
 # Expose the port
-#EXPOSE 5500
+EXPOSE 3800
 
 # Command to execute when the image is instantiated
 CMD ["/wait-for-it.sh", "database:27017", "--", "npm", "run", "dev" ]

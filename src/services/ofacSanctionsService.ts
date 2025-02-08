@@ -127,7 +127,7 @@ class OfacSanctionService {
       return sanctionedResults;
     } catch (error) {
       logger.error("Error searching sanctions:", error.message);
-      throw new Error("Database query failed");
+      
     }
   }
 
